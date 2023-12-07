@@ -6,6 +6,6 @@ import gui.Color;
 public class Player extends Ball {
 
   public Player(double x, double y, int radius) {
-    super(x,y,radius, new Color(0,0,0));
+    super(x,y,radius, new Color(0,0,0), 0 , 0);
   }
 }

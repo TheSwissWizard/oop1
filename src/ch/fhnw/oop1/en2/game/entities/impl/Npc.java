@@ -6,6 +6,6 @@ import gui.Color;
 public class Npc extends Ball {
 
   public Npc(double x, double y, int radius, Color color) {
-    super(x, y, radius, color);
+    super(x, y, radius, color, 0, 0);
   }
 }
