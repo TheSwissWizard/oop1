@@ -18,8 +18,10 @@ public class Processor {
   }
 
   public void process() {
-    updateEntities();
-    move();
+    if (GameState.getInstance().isRunning()) {
+      updateEntities();
+      move();
+    }
   }
 
   private void updateEntities(){
@@ -31,30 +33,20 @@ public class Processor {
     Window window = Renderer.getInstance().getWindow();
 
     if (window.isKeyPressed("w")) {
-      GameState.getInstance().getPlayer().setYSpeed(-10);
-    } else {
-      GameState.getInstance().getPlayer().setYSpeed(0);
-    }
-
-    if (window.isKeyPressed("s")) {
-      GameState.getInstance().getPlayer().setYSpeed(10);
+      GameState.getInstance().getPlayer().setYSpeed(-5);
+    } else if (window.isKeyPressed("s")) {
+      GameState.getInstance().getPlayer().setYSpeed(5);
     } else {
       GameState.getInstance().getPlayer().setYSpeed(0);
     }
 
     if (window.isKeyPressed("a")) {
-      GameState.getInstance().getPlayer().setXSpeed(-10);
+      GameState.getInstance().getPlayer().setXSpeed(-5);
+    } else if (window.isKeyPressed("d")) {
+      GameState.getInstance().getPlayer().setXSpeed(5);
     } else {
       GameState.getInstance().getPlayer().setXSpeed(0);
     }
-
-    if (window.isKeyPressed("d")) {
-      GameState.getInstance().getPlayer().setXSpeed(10);
-    } else {
-      GameState.getInstance().getPlayer().setXSpeed(0);
-    }
-
-    System.out.println(GameState.getInstance().getPlayer().getXSpeed());
   }
 
   private void updateNpcs() {}
