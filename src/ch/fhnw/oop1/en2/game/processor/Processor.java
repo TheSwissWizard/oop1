@@ -55,6 +55,21 @@ public class Processor {
     for (ABubble entity : GameState.getInstance().getEntities()) {
       entity.setX(entity.getX() + entity.getXSpeed());
       entity.setY(entity.getY() + entity.getYSpeed());
+      checkWrapAround(entity);
+    }
+  }
+
+  private void checkWrapAround(ABubble entity) {
+    Window window = Renderer.getInstance().getWindow();
+    if (entity.getX() < 0) {
+      entity.setX(window.getWidth());
+    } else if (entity.getX() > window.getWidth()) {
+      entity.setX(0);
+    }
+    if (entity.getY() < 0) {
+      entity.setY(window.getHeight());
+    } else if (entity.getY() > window.getHeight()) {
+      entity.setY(0);
     }
   }
 }
