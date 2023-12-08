@@ -3,6 +3,8 @@ package ch.fhnw.oop1.en2.game;
 import ch.fhnw.oop1.en2.game.entities.ABubble;
 import ch.fhnw.oop1.en2.game.entities.impl.Morph;
 import ch.fhnw.oop1.en2.game.entities.impl.Player;
+import ch.fhnw.oop1.en2.game.renderer.Renderer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class GameState {
     RUNNING, PAUSED, WIN, LOSS
   }
 
-  public static final int INITIAL_MORPH_COUNT = 2;
+  private static final int INITIAL_MORPH_COUNT = 2;
 
   private final List<Morph> npcs = new ArrayList<>();
   private final Player player;

@@ -1,7 +1,7 @@
 package ch.fhnw.oop1.en2.game.entities.impl;
 
 import ch.fhnw.oop1.en2.game.entities.ABubble;
-import ch.fhnw.oop1.en2.game.Renderer;
+import ch.fhnw.oop1.en2.game.renderer.Renderer;
 import gui.Color;
 
 import java.util.Random;

@@ -1,7 +1,8 @@
 package ch.fhnw.oop1.en2.game.processor;
 
+import ch.fhnw.oop1.en2.game.Game;
 import ch.fhnw.oop1.en2.game.GameState;
-import ch.fhnw.oop1.en2.game.Renderer;
+import ch.fhnw.oop1.en2.game.renderer.Renderer;
 import ch.fhnw.oop1.en2.game.entities.ABubble;
 import gui.Window;
 
@@ -21,6 +22,15 @@ public class Processor {
   }
 
   public void process() {
+
+    if (Renderer.getInstance().getWindow().wasKeyTyped("escape")) {
+      if (GameState.getInstance().isRunning()) {
+        GameState.getInstance().pause();
+      } else if (GameState.getInstance().isPaused()) {
+        GameState.getInstance().unpause();
+      }
+    }
+
     if (GameState.getInstance().isRunning()) {
       updateEntities();
       moveEntity();
