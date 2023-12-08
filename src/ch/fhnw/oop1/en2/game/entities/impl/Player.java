@@ -1,9 +1,9 @@
 package ch.fhnw.oop1.en2.game.entities.impl;
 
-import ch.fhnw.oop1.en2.game.entities.Ball;
+import ch.fhnw.oop1.en2.game.entities.ABubble;
 import gui.Color;
 
-public class Player extends Ball {
+public class Player extends ABubble {
 
   public Player(double x, double y, int radius) {
     super(x,y,radius, new Color(0,0,0), 0 , 0);

@@ -2,7 +2,7 @@ package ch.fhnw.oop1.en2.game.entities;
 
 import gui.Color;
 
-public abstract class Ball {
+public abstract class ABubble {
 
   private double x;
   private double y;
@@ -11,7 +11,7 @@ public abstract class Ball {
   private int xSpeed;
   private int ySpeed;
 
-  public Ball(double x, double y, int radius, Color color, int xSpeed, int ySpeed) {
+  protected ABubble(double x, double y, int radius, Color color, int xSpeed, int ySpeed) {
     this.x = x;
     this.y = y;
     this.radius = radius;
@@ -48,9 +48,6 @@ public abstract class Ball {
     return color;
   }
 
-  public void setColor(Color color) {
-    this.color = color;
-  }
 
   public int getXSpeed() {
     return xSpeed;
