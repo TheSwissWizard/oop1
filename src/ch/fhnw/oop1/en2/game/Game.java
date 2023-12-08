@@ -6,7 +6,7 @@ import gui.Window;
 
 /**
  * Starting class for the game itself
- *
+ * <p>
  * This class contains the game loop
  */
 public class Game {

@@ -6,6 +6,9 @@ import gui.Color;
 
 import java.util.Random;
 
+/**
+ * This class depicts the NPCs (Morphs) in the game
+ */
 public class Morph extends ABubble {
 
   private enum MorphStates {
@@ -44,6 +47,10 @@ public class Morph extends ABubble {
     super(x, y, radius, dna.getColor(), xSpeed, ySpeed);
   }
 
+  /**
+   * Creates a new {@link Morph} object with the proper values
+   * @return newly created {@link Morph}
+   */
   public static Morph createNewMorph() {
 
     MorphDNA dna = MorphDNA.values()[(int) (Math.random() * MorphDNA.values().length)];
