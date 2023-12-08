@@ -1,18 +1,27 @@
 package ch.fhnw.oop1.en2.game.processor;
 
-import ch.fhnw.oop1.en2.game.Game;
 import ch.fhnw.oop1.en2.game.GameState;
 import ch.fhnw.oop1.en2.game.renderer.Renderer;
 import ch.fhnw.oop1.en2.game.entities.ABubble;
 import gui.Window;
 
+/**
+ * This class is the entrypoint for the game's update logic.
+ * It orchestrates and delegates functions to update the {@link GameState gameState}
+ * as well as the {@link ch.fhnw.oop1.en2.game.entities.impl.Player player}
+ * and {@link ch.fhnw.oop1.en2.game.entities.impl.Morph morphs}
+ */
 public class Processor {
   
   private final PlayerUpdater playerUpdater = new PlayerUpdater();
   private final MorphUpdater morphUpdater = new MorphUpdater();
-
   private static Processor instance;
 
+  /**
+   * Returns the current Processor object associated with this application
+   *
+   * @return the current Processor object of this application
+   */
   public static Processor getInstance() {
     if (instance == null) {
       instance = new Processor() {
@@ -20,6 +29,8 @@ public class Processor {
     }
     return instance;
   }
+
+  private Processor(){}
 
   public void process() {
 
