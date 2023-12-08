@@ -1,10 +1,9 @@
-package ch.fhnw.oop1.en2.game;
+package ch.fhnw.oop1.en2.game.util;
 
 import ch.fhnw.oop1.en2.game.entities.ABubble;
 import ch.fhnw.oop1.en2.game.entities.impl.Npc;
 import ch.fhnw.oop1.en2.game.entities.impl.Player;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class GameState {

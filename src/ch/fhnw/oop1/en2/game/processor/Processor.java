@@ -1,7 +1,7 @@
 package ch.fhnw.oop1.en2.game.processor;
 
-import ch.fhnw.oop1.en2.game.GameState;
-import ch.fhnw.oop1.en2.game.Renderer;
+import ch.fhnw.oop1.en2.game.util.GameState;
+import ch.fhnw.oop1.en2.game.util.Renderer;
 import ch.fhnw.oop1.en2.game.entities.ABubble;
 import gui.Window;
 
@@ -20,7 +20,7 @@ public class Processor {
   public void process() {
     if (GameState.getInstance().isRunning()) {
       updateEntities();
-      move();
+      moveEntity();
     }
   }
 
@@ -51,7 +51,7 @@ public class Processor {
 
   private void updateNpcs() {}
 
-  private void move() {
+  private void moveEntity() {
     for (ABubble entity : GameState.getInstance().getEntities()) {
       entity.setX(entity.getX() + entity.getXSpeed());
       entity.setY(entity.getY() + entity.getYSpeed());

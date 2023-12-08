@@ -1,6 +1,8 @@
 package ch.fhnw.oop1.en2.game;
 
 import ch.fhnw.oop1.en2.game.processor.Processor;
+import ch.fhnw.oop1.en2.game.util.GameState;
+import ch.fhnw.oop1.en2.game.util.Renderer;
 import gui.Window;
 
 public class Game {
