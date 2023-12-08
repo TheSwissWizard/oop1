@@ -11,6 +11,8 @@ public class Morph extends ABubble {
     META, KILLER, PREY
   }
 
+  private MorphStates currentMorphState = MorphStates.META;
+
   private Morph(int x, int y, int radius, MorphDNA dna, int xSpeed, int ySpeed) {
     super(x, y, radius, dna.getColor(), xSpeed, ySpeed);
   }

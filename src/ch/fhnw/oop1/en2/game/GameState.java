@@ -17,7 +17,7 @@ public class GameState {
   private final List<Morph> npcs = new ArrayList<>();
   private final Player player;
   private static GameState instance;
-  private GameStates currentGameState;
+  private GameStates currentGameState = GameStates.RUNNING;
 
   private GameState() {
     this.player = new Player(Renderer.getInstance().getWindow().getWidth() / 2,
@@ -26,8 +26,6 @@ public class GameState {
     for (int i = 0; i < INITIAL_MORPH_COUNT; i++) {
       this.npcs.add(Morph.createNewMorph());
     }
-
-    unpause();
   }
 
   public static GameState getInstance() {
@@ -60,7 +58,6 @@ public class GameState {
   public boolean isPaused() {
     return this.currentGameState == GameStates.PAUSED;
   }
-
 
   public List<Morph> getNpcs() {
     return this.npcs;
