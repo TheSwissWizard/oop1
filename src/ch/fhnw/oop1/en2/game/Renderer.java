@@ -1,4 +1,4 @@
-package ch.fhnw.oop1.en2.game.util;
+package ch.fhnw.oop1.en2.game;
 
 import ch.fhnw.oop1.en2.game.entities.ABubble;
 import gui.Window;

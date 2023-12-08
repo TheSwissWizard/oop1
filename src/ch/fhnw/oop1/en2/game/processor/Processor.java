@@ -1,7 +1,7 @@
 package ch.fhnw.oop1.en2.game.processor;
 
-import ch.fhnw.oop1.en2.game.util.GameState;
-import ch.fhnw.oop1.en2.game.util.Renderer;
+import ch.fhnw.oop1.en2.game.GameState;
+import ch.fhnw.oop1.en2.game.Renderer;
 import ch.fhnw.oop1.en2.game.entities.ABubble;
 import gui.Window;
 
