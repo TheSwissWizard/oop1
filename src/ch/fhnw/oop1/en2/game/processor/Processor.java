@@ -6,8 +6,6 @@ import ch.fhnw.oop1.en2.game.renderer.Renderer;
 import ch.fhnw.oop1.en2.game.entities.ABubble;
 import gui.Window;
 
-import java.util.List;
-
 /**
  * This class contains the game's update logic.
  * It orchestrates and delegates functions to update the {@link GameState gameState}
@@ -19,6 +17,7 @@ public class Processor {
   private static Processor instance;
 
   /**
+   * Returns the current Processor object or creates a new one if the current one is null
    * @return the current Processor object of this application
    */
   public static Processor getInstance() {

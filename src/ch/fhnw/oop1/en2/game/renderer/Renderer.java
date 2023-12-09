@@ -17,6 +17,7 @@ public class Renderer {
     private static Renderer instance;
 
     /**
+     * Returns the current Renderer object or creates a new one if the current one is null
      * @return the current Renderer object of this application
      */
     public static Renderer getInstance() {

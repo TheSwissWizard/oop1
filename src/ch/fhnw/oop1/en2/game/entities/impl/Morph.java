@@ -52,11 +52,12 @@ public class Morph extends ABubble {
   public static final double GROWTH_PER_MS = (double) MAX_SIZE / META_DURATION;
 
   private MorphStates currentMorphState = MorphStates.META;
-
   private long age = 0;
+  private long movementTimeInterval;
 
-  private Morph(int x, int y, int radius, MorphDNA dna, int xSpeed, int ySpeed) {
+  private Morph(int x, int y, int radius, MorphDNA dna, int xSpeed, int ySpeed, long movementTimeInterval) {
     super(x, y, radius, dna.getColor(), xSpeed, ySpeed);
+    this.movementTimeInterval = movementTimeInterval;
   }
 
   /**
@@ -68,8 +69,9 @@ public class Morph extends ABubble {
     MorphDNA dna = MorphDNA.values()[(int) (Math.random() * MorphDNA.values().length)];
     int x = new Random().nextInt((int) Renderer.getInstance().getWindow().getWidth()) + 1;
     int y = new Random().nextInt((int) Renderer.getInstance().getWindow().getHeight()) + 1;
+    long movementTimeinterval = new Random().nextInt(3);
 
-    return new Morph(x, y, 0, dna, 0, 0);
+    return new Morph(x, y, 0, dna, 0, 0, movementTimeinterval);
   }
 
   /**

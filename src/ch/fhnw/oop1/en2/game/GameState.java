@@ -36,7 +36,6 @@ public class GameState {
     private int points = 0;
     private long gameTime = 90000;
 
-
     private GameState() {
         this.player = new Player(Renderer.getInstance().getWindow().getWidth() / 2,
                 Renderer.getInstance().getWindow().getHeight() / 2);
@@ -47,6 +46,7 @@ public class GameState {
     }
 
     /**
+     * Returns the current GameState object or creates a new one if the current one is null
      * @return the current GameState object of this game
      */
     public static GameState getInstance() {
@@ -128,7 +128,6 @@ public class GameState {
 
     /**
      * Removes a {@link Morph}
-     *
      * @param morph {@link Morph} to remove
      */
     public void removeMorph(Morph morph) {
@@ -137,7 +136,6 @@ public class GameState {
 
     /**
      * Returns a list of all current entities = All {@link Morph morphs} and the {@link Player}
-     *
      * @return a list of {@link ABubble}
      */
     public List<ABubble> getEntities() {
@@ -169,7 +167,6 @@ public class GameState {
 
     /**
      * Updates the game time based on the timeDelta
-     *
      * @param timeDelta duration of the previous frame
      */
     public void updateTime(long timeDelta) {
