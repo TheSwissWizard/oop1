@@ -5,9 +5,7 @@ import ch.fhnw.oop1.en2.game.entities.ABubble;
 import gui.Window;
 
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.logging.SimpleFormatter;
 
 /**
  * This class contains part of the game's render/draw logic.
@@ -39,25 +37,49 @@ public class Renderer {
     public void render() {
 
         if (GameState.getInstance().isPaused()) {
-            window.drawStringCentered("PAUSED", window.getWidth() / 2, window.getHeight() / 2);
-
+            renderPause();
+        } else if (GameState.getInstance().isWon()) {
+            renderWin();
+        } else if (GameState.getInstance().isLost()) {
+            renderLoss();
         } else if (GameState.getInstance().isRunning()) {
-            window.drawStringCentered("Punkte: " + GameState.getInstance().getPoints(), 50, 50);
-
-
-
-            Date date = new Date(GameState.getInstance().getGameTime());
-            SimpleDateFormat format = new SimpleDateFormat("mm:ss:SSS");
-            String formatedTime = format.format(date);
-
-            window.drawStringCentered("Zeit: " + formatedTime, 150, 50);
-
-            for (ABubble entity : GameState.getInstance().getEntities()) {
-                window.setColor(entity.getColor());
-                window.fillCircle(entity.getX(), entity.getY(), entity.getRadius());
-            }
+            renderGame();
         }
+
         window.refreshAndClear();
+    }
+
+    private void renderWin() {
+        window.setFontSize(30);
+        window.drawStringCentered(String.format("You won with %s points!!!",
+                GameState.getInstance().getPoints()),
+                window.getWidth() / 2, window.getHeight() / 2);
+    }
+
+    private void renderLoss() {
+
+    }
+
+    private void renderPause() {
+        window.drawStringCentered("PAUSED", window.getWidth() / 2, window.getHeight() / 2);
+    }
+
+    private void renderGame() {
+        window.setFontSize(20);
+        window.drawStringCentered("Punkte: " + GameState.getInstance().getPoints(), 100, 50);
+        window.drawStringCentered("Zeit: " + formatGameTimeLeft(), 300, 50);
+
+        for (ABubble entity : GameState.getInstance().getEntities()) {
+            window.setColor(entity.getColor());
+            window.fillCircle(entity.getX(), entity.getY(), entity.getRadius());
+        }
+    }
+
+
+    private String formatGameTimeLeft() {
+        Date date = new Date(GameState.getInstance().getGameTime());
+        SimpleDateFormat format = new SimpleDateFormat("mm:ss:SSS");
+        return format.format(date);
     }
 
     /**

@@ -23,7 +23,7 @@ public class Game {
     window.open();
     long timeDelta = 0;
 
-    while((state.isRunning() || state.isPaused()) && window.isOpen()) {
+    while(window.isOpen()) {
       long startTime = System.currentTimeMillis();
 
       Processor.getInstance().process(timeDelta);

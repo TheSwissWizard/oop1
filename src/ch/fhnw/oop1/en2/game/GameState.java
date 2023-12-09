@@ -29,13 +29,12 @@ public class GameState {
     }
 
     private static final int INITIAL_MORPH_COUNT = 2;
-
     private final List<Morph> morphs = new ArrayList<>();
     private final Player player;
     private static GameState instance;
     private GameStates currentGameState = GameStates.RUNNING;
     private int points = 0;
-    private long gameTime = 90000;
+    private long gameTime = 5000;
 
 
     private GameState() {
@@ -100,6 +99,20 @@ public class GameState {
     }
 
     /**
+     * @return if the game is won
+     */
+    public boolean isWon() {
+        return this.currentGameState == GameStates.WIN;
+    }
+
+    /**
+     * @return if the game is lost
+     */
+    public boolean isLost() {
+        return this.currentGameState == GameStates.LOSS;
+    }
+
+    /**
      * @return a list of all current {@link Morph morphs}
      */
     public List<Morph> getMorphs() {
@@ -115,6 +128,7 @@ public class GameState {
 
     /**
      * Removes a {@link Morph}
+     *
      * @param morph {@link Morph} to remove
      */
     public void removeMorph(Morph morph) {
@@ -123,6 +137,7 @@ public class GameState {
 
     /**
      * Returns a list of all current entities = All {@link Morph morphs} and the {@link Player}
+     *
      * @return a list of {@link ABubble}
      */
     public List<ABubble> getEntities() {
@@ -154,6 +169,7 @@ public class GameState {
 
     /**
      * Updates the game time based on the timeDelta
+     *
      * @param timeDelta duration of the previous frame
      */
     public void updateTime(long timeDelta) {

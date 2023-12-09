@@ -44,9 +44,13 @@ public class Processor {
     }
 
     if (GameState.getInstance().isRunning()) {
-      GameState.getInstance().updateTime(timeDelta);
-      updateEntities();
-      moveEntity();
+      if (GameState.getInstance().getGameTime() > 0) {
+        GameState.getInstance().updateTime(timeDelta);
+        updateEntities();
+        moveEntity();
+      }else {
+        GameState.getInstance().win();
+      }
     }
   }
 
