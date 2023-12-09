@@ -41,7 +41,19 @@ public class Morph extends ABubble {
     }
   }
 
+  /**
+   * Amount of milliseconds the morph is in its meta state
+   */
+  public static final long META_DURATION = 5000;
+
+  /**
+   * The amount a morph in its meta state grows per millisecond
+   */
+  public static final double GROWTH_PER_MS = (double) MAX_SIZE / META_DURATION;
+
   private MorphStates currentMorphState = MorphStates.META;
+
+  private long age = 0;
 
   private Morph(int x, int y, int radius, MorphDNA dna, int xSpeed, int ySpeed) {
     super(x, y, radius, dna.getColor(), xSpeed, ySpeed);
@@ -57,6 +69,35 @@ public class Morph extends ABubble {
     int x = new Random().nextInt((int) Renderer.getInstance().getWindow().getWidth()) + 1;
     int y = new Random().nextInt((int) Renderer.getInstance().getWindow().getHeight()) + 1;
 
-    return new Morph(x, y, 20, dna, 0, 0);
+    return new Morph(x, y, 0, dna, 0, 0);
+  }
+
+  /**
+   * @return if the Morph is in its meta state
+   */
+  public boolean isMeta() {
+    return this.currentMorphState == MorphStates.META;
+  }
+
+  /**
+   * @return if the Moprh is in its prey state
+   */
+  public boolean isPrey() {
+    return this.currentMorphState == MorphStates.PREY;
+  }
+
+  /**
+   * Sets a new age value
+   * @param age new age value
+   */
+  public void setAge(long age) {
+    this.age = age;
+  }
+
+  /**
+   * @return current age of the morph
+   */
+  public long getAge() {
+    return this.age;
   }
 }

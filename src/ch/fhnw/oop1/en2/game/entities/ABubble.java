@@ -15,12 +15,17 @@ public abstract class ABubble {
 
   private double x;
   private double y;
-  private int radius;
+  private double radius;
   private Color color;
   private int xSpeed;
   private int ySpeed;
 
-  protected ABubble(double x, double y, int radius, Color color, int xSpeed, int ySpeed) {
+  /**
+   * Max size an entity can have
+   */
+  public static final int MAX_SIZE = 20;
+
+  protected ABubble(double x, double y, double radius, Color color, int xSpeed, int ySpeed) {
     this.x = x;
     this.y = y;
     this.radius = radius;
@@ -62,8 +67,16 @@ public abstract class ABubble {
   /**
    * @return radius of the  object
    */
-  public int getRadius() {
+  public double getRadius() {
     return radius;
+  }
+
+  /**
+   * Updates the radius of this entity
+   * @param radius new radius
+   */
+  public void setRadius(double radius) {
+    this.radius = radius;
   }
 
   /**

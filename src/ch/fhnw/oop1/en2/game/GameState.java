@@ -34,12 +34,12 @@ public class GameState {
     private static GameState instance;
     private GameStates currentGameState = GameStates.RUNNING;
     private int points = 0;
-    private long gameTime = 5000;
+    private long gameTime = 90000;
 
 
     private GameState() {
         this.player = new Player(Renderer.getInstance().getWindow().getWidth() / 2,
-                Renderer.getInstance().getWindow().getHeight() / 2, 20);
+                Renderer.getInstance().getWindow().getHeight() / 2);
 
         for (int i = 0; i < INITIAL_MORPH_COUNT; i++) {
             this.morphs.add(Morph.createNewMorph());

@@ -1,9 +1,12 @@
 package ch.fhnw.oop1.en2.game.processor;
 
 import ch.fhnw.oop1.en2.game.GameState;
+import ch.fhnw.oop1.en2.game.entities.impl.Morph;
 import ch.fhnw.oop1.en2.game.renderer.Renderer;
 import ch.fhnw.oop1.en2.game.entities.ABubble;
 import gui.Window;
+
+import java.util.List;
 
 /**
  * This class contains part of the game's update logic.
@@ -57,20 +60,32 @@ public class Processor {
   private void processGame(long timeDelta) {
     if (GameState.getInstance().getGameTime() > 0) {
       GameState.getInstance().updateTime(timeDelta);
-      updateEntities();
+      updateEntities(timeDelta);
       moveEntity();
     }else {
       GameState.getInstance().win();
     }
   }
 
-  private void updateEntities(){
+  private void updateEntities(long timeDelta){
     updatePlayer();
-    updateMorphs();
+    updateMorphs(timeDelta);
   }
 
-  private void updateMorphs() {
+  private void updateMorphs(long timeDelta) {
+    for (Morph morph : GameState.getInstance().getMorphs()) {
+      if (morph.isMeta()) {
+        if (morph.getAge() < Morph.META_DURATION) {
+          morph.setAge(morph.getAge() + timeDelta);
+          morph.setRadius(calculateMorphSize(morph, timeDelta));
+        }
+      }
+    }
+  }
 
+  private double calculateMorphSize(Morph morph, long timeDelta) {
+    double newSize = morph.getRadius() + (Morph.GROWTH_PER_MS * timeDelta);
+    return newSize > ABubble.MAX_SIZE ? ABubble.MAX_SIZE : newSize;
   }
 
   private void updatePlayer() {

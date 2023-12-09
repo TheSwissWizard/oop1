@@ -8,7 +8,7 @@ import gui.Color;
  */
 public class Player extends ABubble {
 
-  public Player(double x, double y, int radius) {
-    super(x,y,radius, new Color(0,0,0), 0 , 0);
+  public Player(double x, double y) {
+    super(x,y,MAX_SIZE, new Color(0,0,0), 0 , 0);
   }
 }
