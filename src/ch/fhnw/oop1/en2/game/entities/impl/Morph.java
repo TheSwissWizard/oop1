@@ -24,8 +24,8 @@ public class Morph extends ABubble {
     ORANGE(70, new Color(230, 126, 34)),
     RED(99, new Color(231, 76, 60));
 
-    private int points;
-    private Color color;
+    private final int points;
+    private final Color color;
 
     MorphDNA(int points, Color color) {
       this.points = points;
@@ -99,5 +99,12 @@ public class Morph extends ABubble {
    */
   public long getAge() {
     return this.age;
+  }
+
+  /**
+   * Makes the morph a killer morph
+   */
+  public void killer() {
+    this.currentMorphState = MorphStates.KILLER;
   }
 }

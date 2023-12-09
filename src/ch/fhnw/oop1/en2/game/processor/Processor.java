@@ -9,7 +9,7 @@ import gui.Window;
 import java.util.List;
 
 /**
- * This class contains part of the game's update logic.
+ * This class contains the game's update logic.
  * It orchestrates and delegates functions to update the {@link GameState gameState}
  * as well as the {@link ch.fhnw.oop1.en2.game.entities.impl.Player player}
  * and {@link ch.fhnw.oop1.en2.game.entities.impl.Morph morphs}
@@ -75,9 +75,11 @@ public class Processor {
   private void updateMorphs(long timeDelta) {
     for (Morph morph : GameState.getInstance().getMorphs()) {
       if (morph.isMeta()) {
-        if (morph.getAge() < Morph.META_DURATION) {
+        if (morph.getAge() <= Morph.META_DURATION) {
           morph.setAge(morph.getAge() + timeDelta);
           morph.setRadius(calculateMorphSize(morph, timeDelta));
+        } else {
+          morph.killer();
         }
       }
     }
