@@ -92,6 +92,12 @@ public class Processor {
         if (morph.getTimer() > morph.getMovementTimeInterval()) {
           generateRandomMorphSpeed(morph);
         }
+
+        if (new Random().nextInt(420) == 69) {
+          morph.prey();
+          morph.setXSpeed(0);
+          morph.setYSpeed(0);
+        }
       }
     }
   }
