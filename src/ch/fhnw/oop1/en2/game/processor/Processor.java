@@ -6,6 +6,8 @@ import ch.fhnw.oop1.en2.game.renderer.Renderer;
 import ch.fhnw.oop1.en2.game.entities.ABubble;
 import gui.Window;
 
+import java.util.Random;
+
 /**
  * This class contains the game's update logic.
  * It orchestrates and delegates functions to update the {@link GameState gameState}
@@ -73,15 +75,37 @@ public class Processor {
 
   private void updateMorphs(long timeDelta) {
     for (Morph morph : GameState.getInstance().getMorphs()) {
+      morph.setTimer(morph.getTimer() + timeDelta);
       if (morph.isMeta()) {
-        if (morph.getAge() <= Morph.META_DURATION) {
-          morph.setAge(morph.getAge() + timeDelta);
+        if (morph.getTimer() <= Morph.META_DURATION) {
           morph.setRadius(calculateMorphSize(morph, timeDelta));
         } else {
           morph.killer();
+          generateRandomMorphSpeed(morph);
+        }
+      } else if (morph.isPrey()) {
+        if (morph.getTimer() > Morph.PREY_DURATION) {
+          morph.killer();
+          generateRandomMorphSpeed(morph);
+        }
+      } else {
+        if (morph.getTimer() > morph.getMovementTimeInterval()) {
+          generateRandomMorphSpeed(morph);
         }
       }
     }
+  }
+
+  private void generateRandomMorphSpeed(Morph morph) {
+    int xSpeed = new Random().nextInt(-5, 5);
+    int ySpeed = new Random().nextInt(-5, 5);
+    int interval = new Random().nextInt(500, 2000);
+
+    morph.setXSpeed(xSpeed);
+    morph.setYSpeed(ySpeed);
+    morph.setMovementTimeInterval(interval);
+
+    morph.setTimer(0);
   }
 
   private double calculateMorphSize(Morph morph, long timeDelta) {

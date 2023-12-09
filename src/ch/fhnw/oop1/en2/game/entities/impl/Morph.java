@@ -41,10 +41,17 @@ public class Morph extends ABubble {
     }
   }
 
+  private int points;
+
   /**
    * Amount of milliseconds the morph is in its meta state
    */
-  public static final long META_DURATION = 5000;
+  public static final long META_DURATION = 3000;
+
+  /**
+   * Amount of milliseconds the morph is in its prey state
+   */
+  public static long PREY_DURATION = 5000;
 
   /**
    * The amount a morph in its meta state grows per millisecond
@@ -52,12 +59,13 @@ public class Morph extends ABubble {
   public static final double GROWTH_PER_MS = (double) MAX_SIZE / META_DURATION;
 
   private MorphStates currentMorphState = MorphStates.META;
-  private long age = 0;
+  private long timer = 0;
   private long movementTimeInterval;
 
-  private Morph(int x, int y, int radius, MorphDNA dna, int xSpeed, int ySpeed, long movementTimeInterval) {
+  private Morph(int x, int y, int radius, MorphDNA dna, int xSpeed, int ySpeed, long movementTimeInterval, int points) {
     super(x, y, radius, dna.getColor(), xSpeed, ySpeed);
     this.movementTimeInterval = movementTimeInterval;
+    this.points = points;
   }
 
   /**
@@ -67,11 +75,11 @@ public class Morph extends ABubble {
   public static Morph createNewMorph() {
 
     MorphDNA dna = MorphDNA.values()[(int) (Math.random() * MorphDNA.values().length)];
-    int x = new Random().nextInt((int) Renderer.getInstance().getWindow().getWidth()) + 1;
-    int y = new Random().nextInt((int) Renderer.getInstance().getWindow().getHeight()) + 1;
-    long movementTimeinterval = new Random().nextInt(3);
+    int x = new Random().nextInt((int) Renderer.getInstance().getWindow().getWidth());
+    int y = new Random().nextInt((int) Renderer.getInstance().getWindow().getHeight());
+    long movementTimeInterval = new Random().nextInt(500, 2000);
 
-    return new Morph(x, y, 0, dna, 0, 0, movementTimeinterval);
+    return new Morph(x, y, 0, dna, 0, 0, movementTimeInterval, dna.getPoints());
   }
 
   /**
@@ -89,18 +97,18 @@ public class Morph extends ABubble {
   }
 
   /**
-   * Sets a new age value
-   * @param age new age value
+   * Sets a new timer value
+   * @param timer new timer value
    */
-  public void setAge(long age) {
-    this.age = age;
+  public void setTimer(long timer) {
+    this.timer = timer;
   }
 
   /**
-   * @return current age of the morph
+   * @return current timer of the morph
    */
-  public long getAge() {
-    return this.age;
+  public long getTimer() {
+    return this.timer;
   }
 
   /**
@@ -108,5 +116,34 @@ public class Morph extends ABubble {
    */
   public void killer() {
     this.currentMorphState = MorphStates.KILLER;
+  }
+
+  /**
+   * Makes the morph a prey morph
+   */
+  public void prey() {
+    this.currentMorphState = MorphStates.PREY;
+  }
+
+  /**
+   * @return points for this morph
+   */
+  public int getPoints() {
+    return this.points;
+  }
+
+  /**
+   * @return time till morph's movement changes
+   */
+  public long getMovementTimeInterval () {
+    return this.movementTimeInterval;
+  }
+
+  /**
+   * Sets a new interval value after which the morph's speed and direction is changed
+   * @param interval the new interval
+   */
+  public void setMovementTimeInterval(long interval){
+    this.movementTimeInterval = interval;
   }
 }

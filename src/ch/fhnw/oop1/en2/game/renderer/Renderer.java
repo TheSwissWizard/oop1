@@ -3,6 +3,7 @@ package ch.fhnw.oop1.en2.game.renderer;
 import ch.fhnw.oop1.en2.game.GameState;
 import ch.fhnw.oop1.en2.game.entities.ABubble;
 import ch.fhnw.oop1.en2.game.entities.impl.Morph;
+import gui.Color;
 import gui.Window;
 
 import java.text.SimpleDateFormat;
@@ -72,26 +73,34 @@ public class Renderer {
         window.drawStringCentered("Zeit: " + formatGameTimeLeft(), 300, 50);
 
         for (ABubble entity : GameState.getInstance().getEntities()) {
+            window.setColor(entity.getColor());
             if (entity instanceof Morph && ((Morph) entity).isMeta()){
                 renderMetaMorph((Morph) entity);
             } else if (entity instanceof Morph && ((Morph) entity).isPrey()) {
                 renderPreyMorph((Morph) entity);
             } else {
-                window.setColor(entity.getColor());
-                window.fillCircle(entity.getX(), entity.getY(), entity.getRadius());
+                drawBubble(entity);
             }
         }
     }
 
     private void renderMetaMorph(Morph morph) {
-        window.setColor(morph.getColor());
         window.drawCircle(morph.getX(), morph.getY(), morph.getRadius());
     }
 
+    /**
+     * + 7 ist just an arbitrary number to center the text within the morph
+     * @param morph prey morph to be rendered
+     */
     private void renderPreyMorph(Morph morph) {
-
+        drawBubble(morph);
+        window.setColor(new Color(255, 255, 255));
+        window.drawStringCentered(Integer.toString(morph.getPoints()), morph.getX(), morph.getY() + 7);
     }
 
+    private void drawBubble(ABubble entity) {
+        window.fillCircle(entity.getX(), entity.getY(), entity.getRadius());
+    }
 
     private String formatGameTimeLeft() {
         Date date = new Date(GameState.getInstance().getGameTime());
