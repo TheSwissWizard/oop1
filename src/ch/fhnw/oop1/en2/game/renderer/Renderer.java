@@ -51,7 +51,7 @@ public class Renderer {
 
     private void renderWin() {
         window.setFontSize(30);
-        window.drawStringCentered(String.format("You won with %s points!!!",
+        window.drawStringCentered(String.format("You won with %s points!!! Press space to restart.",
                 GameState.getInstance().getPoints()),
                 window.getWidth() / 2, window.getHeight() / 2);
     }

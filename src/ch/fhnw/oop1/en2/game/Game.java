@@ -17,7 +17,6 @@ public class Game {
    * @throws InterruptedException thrown in case something is wrong with the {@link Thread#sleep(long)} method.
    */
   public void play() throws InterruptedException {
-    GameState state = GameState.getInstance();
     Window window = Renderer.getInstance().getWindow();
 
     window.open();

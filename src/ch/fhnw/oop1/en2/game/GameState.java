@@ -47,7 +47,7 @@ public class GameState {
     }
 
     /**
-     * @return the current GameState object of this application
+     * @return the current GameState object of this game
      */
     public static GameState getInstance() {
         if (instance == null) {
@@ -174,5 +174,14 @@ public class GameState {
      */
     public void updateTime(long timeDelta) {
         this.gameTime -= timeDelta;
+    }
+
+    /**
+     * Sets the current instance of GameState to null
+     * So that in the next frame a fresh GameState is provided by {@link GameState#getInstance()}
+     * and the game can be restarted
+     */
+    public void reset() {
+        instance = null;
     }
 }

@@ -44,13 +44,25 @@ public class Processor {
     }
 
     if (GameState.getInstance().isRunning()) {
-      if (GameState.getInstance().getGameTime() > 0) {
-        GameState.getInstance().updateTime(timeDelta);
-        updateEntities();
-        moveEntity();
-      }else {
-        GameState.getInstance().win();
-      }
+      processGame(timeDelta);
+    }else if (GameState.getInstance().isWon() || GameState.getInstance().isLost()) {
+      processGameEnd();
+    }
+  }
+
+  private void processGameEnd() {
+    if (Renderer.getInstance().getWindow().isKeyPressed("space")) {
+      GameState.getInstance().reset();
+    }
+  }
+
+  private void processGame(long timeDelta) {
+    if (GameState.getInstance().getGameTime() > 0) {
+      GameState.getInstance().updateTime(timeDelta);
+      updateEntities();
+      moveEntity();
+    }else {
+      GameState.getInstance().win();
     }
   }
 
