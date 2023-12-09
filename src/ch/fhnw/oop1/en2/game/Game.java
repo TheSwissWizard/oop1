@@ -21,12 +21,18 @@ public class Game {
     Window window = Renderer.getInstance().getWindow();
 
     window.open();
-    while((state.isRunning() || state.isPaused()) && window.isOpen()) {
+    long timeDelta = 0;
 
-      Processor.getInstance().process();
+    while((state.isRunning() || state.isPaused()) && window.isOpen()) {
+      long startTime = System.currentTimeMillis();
+
+      Processor.getInstance().process(timeDelta);
       Renderer.getInstance().render();
 
       Thread.sleep(16);
+
+      long finishTime = System.currentTimeMillis();
+      timeDelta = finishTime - startTime;
     }
   }
 }

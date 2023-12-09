@@ -14,11 +14,13 @@ import java.util.List;
  * It contains all important information of the current game such as:
  * <ul>
  *     <li>Current sate of the game</li>
- *     <li>Current {@link Morph morph} entities</li>
- *     <li>Current {@link Player player} object</li>
+ *     <li>Current {@link Morph} object</li>
+ *     <li>Current {@link Player} object</li>
+ *     <li>Current points</li>
+ *     <li>Time left</li>
  * </ul>
  * <p>
- * It also provides the methods to access this information as well as to update the  gamestate
+ * It also provides the methods to access and update this information
  */
 public class GameState {
 
@@ -32,6 +34,9 @@ public class GameState {
     private final Player player;
     private static GameState instance;
     private GameStates currentGameState = GameStates.RUNNING;
+    private int points = 0;
+    private long gameTime = 90000;
+
 
     private GameState() {
         this.player = new Player(Renderer.getInstance().getWindow().getWidth() / 2,
@@ -131,5 +136,27 @@ public class GameState {
      */
     public Player getPlayer() {
         return this.player;
+    }
+
+    /**
+     * @return the current points
+     */
+    public int getPoints() {
+        return this.points;
+    }
+
+    /**
+     * @return the game left in this game
+     */
+    public long getGameTime() {
+        return this.gameTime;
+    }
+
+    /**
+     * Updates the game time based on the timeDelta
+     * @param timeDelta duration of the previous frame
+     */
+    public void updateTime(long timeDelta) {
+        this.gameTime -= timeDelta;
     }
 }

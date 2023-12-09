@@ -33,7 +33,7 @@ public class Processor {
   /**
    * With this method the update process is being started
    */
-  public void process() {
+  public void process(long timeDelta) {
 
     if (Renderer.getInstance().getWindow().wasKeyTyped("escape")) {
       if (GameState.getInstance().isRunning()) {
@@ -44,6 +44,7 @@ public class Processor {
     }
 
     if (GameState.getInstance().isRunning()) {
+      GameState.getInstance().updateTime(timeDelta);
       updateEntities();
       moveEntity();
     }
