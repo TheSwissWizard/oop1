@@ -41,12 +41,13 @@ public class Renderer {
     public void render() {
 
         if (GameState.getInstance().isPaused()) {
-            renderText("PAUSED");
+            renderText("PAUSED", window.getWidth() / 2, window.getHeight() / 2);
         } else if (GameState.getInstance().isWon()) {
-            renderText(String.format("You won with %s points!!! Press space to restart.",
-                    GameState.getInstance().getPoints()));
+            renderText(String.format("You won with %s points!!!\nRestart with space", GameState.getInstance().getPoints()),
+                    window.getWidth() / 2, window.getHeight() / 2);
         } else if (GameState.getInstance().isLost()) {
-            renderText("LOSS");
+            renderText(String.format("GameOver!!!\nPoints: %s\nTime left: %s", GameState.getInstance().getPoints(), formatGameTimeLeft()),
+                    window.getWidth() / 2, window.getHeight() / 2);
         } else if (GameState.getInstance().isRunning()) {
             renderGame();
         }
@@ -54,9 +55,12 @@ public class Renderer {
         window.refreshAndClear();
     }
 
-    private void renderText(String text) {
+    private void renderText(String text, double x, double y) {
         window.setFontSize(30);
-        window.drawStringCentered(text, window.getWidth() / 2, window.getHeight() / 2);
+        for (String s : text.split("\n")) {
+            window.drawStringCentered(s, x, y);
+            y += window.getFontSize();
+        }
     }
 
     private void renderGame() {
