@@ -159,6 +159,14 @@ public class GameState {
     }
 
     /**
+     * Sets a new points value
+     * @param points new value
+     */
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    /**
      * @return the game left in this game
      */
     public long getGameTime() {

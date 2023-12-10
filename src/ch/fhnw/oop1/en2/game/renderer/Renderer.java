@@ -19,6 +19,7 @@ public class Renderer {
 
     /**
      * Returns the current Renderer object or creates a new one if the current one is null
+     *
      * @return the current Renderer object of this application
      */
     public static Renderer getInstance() {
@@ -40,11 +41,12 @@ public class Renderer {
     public void render() {
 
         if (GameState.getInstance().isPaused()) {
-            renderPause();
+            renderText("PAUSED");
         } else if (GameState.getInstance().isWon()) {
-            renderWin();
+            renderText(String.format("You won with %s points!!! Press space to restart.",
+                    GameState.getInstance().getPoints()));
         } else if (GameState.getInstance().isLost()) {
-            renderLoss();
+            renderText("LOSS");
         } else if (GameState.getInstance().isRunning()) {
             renderGame();
         }
@@ -52,19 +54,9 @@ public class Renderer {
         window.refreshAndClear();
     }
 
-    private void renderWin() {
+    private void renderText(String text) {
         window.setFontSize(30);
-        window.drawStringCentered(String.format("You won with %s points!!! Press space to restart.",
-                GameState.getInstance().getPoints()),
-                window.getWidth() / 2, window.getHeight() / 2);
-    }
-
-    private void renderLoss() {
-
-    }
-
-    private void renderPause() {
-        window.drawStringCentered("PAUSED", window.getWidth() / 2, window.getHeight() / 2);
+        window.drawStringCentered(text, window.getWidth() / 2, window.getHeight() / 2);
     }
 
     private void renderGame() {
@@ -74,7 +66,7 @@ public class Renderer {
 
         for (ABubble entity : GameState.getInstance().getEntities()) {
             window.setColor(entity.getColor());
-            if (entity instanceof Morph && ((Morph) entity).isMeta()){
+            if (entity instanceof Morph && ((Morph) entity).isMeta()) {
                 renderMetaMorph((Morph) entity);
             } else if (entity instanceof Morph && ((Morph) entity).isPrey()) {
                 renderPreyMorph((Morph) entity);
@@ -90,6 +82,7 @@ public class Renderer {
 
     /**
      * + 7 ist just an arbitrary number to center the text within the morph
+     *
      * @param morph prey morph to be rendered
      */
     private void renderPreyMorph(Morph morph) {

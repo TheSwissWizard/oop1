@@ -83,17 +83,24 @@ public class Morph extends ABubble {
   }
 
   /**
-   * @return if the Morph is in its meta state
+   * @return if the morph is in its meta state
    */
   public boolean isMeta() {
     return this.currentMorphState == MorphStates.META;
   }
 
   /**
-   * @return if the Moprh is in its prey state
+   * @return if the morph is in its prey state
    */
   public boolean isPrey() {
     return this.currentMorphState == MorphStates.PREY;
+  }
+
+  /**
+   * @return if the morphs is in its killer state
+   */
+  public boolean isKiller() {
+    return this.currentMorphState == MorphStates.KILLER;
   }
 
   /**
