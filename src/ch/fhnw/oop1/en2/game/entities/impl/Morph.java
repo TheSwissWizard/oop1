@@ -53,14 +53,11 @@ public class Morph extends ABubble {
    */
   public static long PREY_DURATION = 5000;
 
-  /**
-   * The amount a morph in its meta state grows per millisecond
-   */
-  public static final double GROWTH_PER_MS = (double) MAX_SIZE / META_DURATION;
-
   private MorphStates currentMorphState = MorphStates.META;
   private long timer = 0;
   private long movementTimeInterval;
+
+  private boolean preyRender = true;
 
   private Morph(int x, int y, int radius, MorphDNA dna, int xSpeed, int ySpeed, long movementTimeInterval, int points) {
     super(x, y, radius, dna.getColor(), xSpeed, ySpeed);
@@ -69,8 +66,8 @@ public class Morph extends ABubble {
   }
 
   /**
-   * Creates a new {@link Morph} object with the proper values
-   * @return newly created {@link Morph}
+   * Creates a new {@link Morph} object with the proper randomized values
+   * @return newly created {@link Morph} object
    */
   public static Morph createNewMorph() {
 
@@ -152,5 +149,20 @@ public class Morph extends ABubble {
    */
   public void setMovementTimeInterval(long interval){
     this.movementTimeInterval = interval;
+  }
+
+  /**
+   * @return preyRender value - if the prey morph should be rendered in the next frame
+   */
+  public boolean isPreyRender() {
+    return preyRender;
+  }
+
+  /**
+   * Sets a new preRender value - if the prey morph should be rendered in the next frame
+   * @param preyRender new value
+   */
+  public void setPreyRender(boolean preyRender) {
+    this.preyRender = preyRender;
   }
 }

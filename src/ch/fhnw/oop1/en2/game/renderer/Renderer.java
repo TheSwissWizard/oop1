@@ -73,7 +73,9 @@ public class Renderer {
             if (entity instanceof Morph && ((Morph) entity).isMeta()) {
                 renderMetaMorph((Morph) entity);
             } else if (entity instanceof Morph && ((Morph) entity).isPrey()) {
-                renderPreyMorph((Morph) entity);
+                if (((Morph) entity).isPreyRender()) {
+                    renderPreyMorph((Morph) entity);
+                }
             } else {
                 drawBubble(entity);
             }

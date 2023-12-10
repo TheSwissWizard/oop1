@@ -92,6 +92,8 @@ public class Processor {
                 if (morph.getTimer() > Morph.PREY_DURATION) {
                     morph.killer();
                     generateRandomMorphSpeed(morph);
+                } else if (morph.getTimer() > 3000) {
+                    morph.setPreyRender(!morph.isPreyRender());
                 }
             } else {
                 if (morph.getTimer() > morph.getMovementTimeInterval()) {
@@ -120,7 +122,7 @@ public class Processor {
     }
 
     private double calculateMorphSize(Morph morph, long timeDelta) {
-        double newSize = morph.getRadius() + (Morph.GROWTH_PER_MS * timeDelta);
+        double newSize = morph.getRadius() + (((double) Morph.MAX_SIZE / Morph.META_DURATION) * timeDelta);
         return newSize > ABubble.MAX_SIZE ? ABubble.MAX_SIZE : newSize;
     }
 
