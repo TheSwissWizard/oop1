@@ -52,12 +52,12 @@ public class Morph extends ABubble {
    * Amount of milliseconds the morph is in its prey state
    */
   public static long PREY_DURATION = 5000;
-
   private MorphStates currentMorphState = MorphStates.META;
   private long timer = 0;
   private long movementTimeInterval;
-
   private boolean preyRender = true;
+  private long blinkTimer = 0;
+
 
   private Morph(int x, int y, int radius, MorphDNA dna, int xSpeed, int ySpeed, long movementTimeInterval, int points) {
     super(x, y, radius, dna.getColor(), xSpeed, ySpeed);
@@ -164,5 +164,20 @@ public class Morph extends ABubble {
    */
   public void setPreyRender(boolean preyRender) {
     this.preyRender = preyRender;
+  }
+
+  /**
+   * @return amount in millisecond since last blink
+   */
+  public long getBlinkTimer() {
+    return blinkTimer;
+  }
+
+  /**
+   * Sets a new blinkTimer value
+   * @param blinkTimer new value
+   */
+  public void setBlinkTimer(long blinkTimer) {
+    this.blinkTimer = blinkTimer;
   }
 }

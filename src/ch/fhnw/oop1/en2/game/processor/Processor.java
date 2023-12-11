@@ -93,7 +93,12 @@ public class Processor {
                     morph.killer();
                     generateRandomMorphSpeed(morph);
                 } else if (morph.getTimer() > 3000) {
-                    morph.setPreyRender(!morph.isPreyRender());
+                    if (morph.getBlinkTimer() > 250) {
+                        morph.setPreyRender(!morph.isPreyRender());
+                        morph.setBlinkTimer(0);
+                    } else {
+                        morph.setBlinkTimer(morph.getBlinkTimer() + timeDelta);
+                    }
                 }
             } else {
                 if (morph.getTimer() > morph.getMovementTimeInterval()) {

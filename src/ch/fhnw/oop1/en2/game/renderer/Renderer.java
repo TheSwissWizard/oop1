@@ -5,7 +5,6 @@ import ch.fhnw.oop1.en2.game.entities.ABubble;
 import ch.fhnw.oop1.en2.game.entities.impl.Morph;
 import gui.Color;
 import gui.Window;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -73,9 +72,7 @@ public class Renderer {
             if (entity instanceof Morph && ((Morph) entity).isMeta()) {
                 renderMetaMorph((Morph) entity);
             } else if (entity instanceof Morph && ((Morph) entity).isPrey()) {
-                if (((Morph) entity).isPreyRender()) {
-                    renderPreyMorph((Morph) entity);
-                }
+                renderPreyMorph((Morph) entity);
             } else {
                 drawBubble(entity);
             }
@@ -93,8 +90,11 @@ public class Renderer {
      */
     private void renderPreyMorph(Morph morph) {
         drawBubble(morph);
-        window.setColor(new Color(255, 255, 255));
-        window.drawStringCentered(Integer.toString(morph.getPoints()), morph.getX(), morph.getY() + 7);
+        if (morph.isPreyRender()) {
+            window.setColor(new Color(255, 255, 255));
+            window.drawStringCentered(Integer.toString(morph.getPoints()), morph.getX(),
+                morph.getY() + 7);
+        }
     }
 
     private void drawBubble(ABubble entity) {
