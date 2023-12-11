@@ -1,15 +1,14 @@
 package ch.fhnw.oop1.en2.game.entities.impl;
 
-import ch.fhnw.oop1.en2.game.entities.ABubble;
+import ch.fhnw.oop1.en2.game.entities.GameEntity;
 import ch.fhnw.oop1.en2.game.renderer.Renderer;
 import gui.Color;
-
 import java.util.Random;
 
 /**
  * This class depicts the NPCs (Morphs) in the game
  */
-public class Morph extends ABubble {
+public class Morph extends GameEntity {
 
   private enum MorphStates {
     META, KILLER, PREY
@@ -52,6 +51,9 @@ public class Morph extends ABubble {
    * Amount of milliseconds the morph is in its prey state
    */
   public static long PREY_DURATION = 5000;
+
+  private long spawnDelay;
+  private boolean spawned = false;
   private MorphStates currentMorphState = MorphStates.META;
   private long timer = 0;
   private long movementTimeInterval;
@@ -59,10 +61,12 @@ public class Morph extends ABubble {
   private long blinkTimer = 0;
 
 
-  private Morph(int x, int y, int radius, MorphDNA dna, int xSpeed, int ySpeed, long movementTimeInterval, int points) {
+  private Morph(int x, int y, int radius, MorphDNA dna, int xSpeed, int ySpeed,
+      long movementTimeInterval, int points, long spawnDelay) {
     super(x, y, radius, dna.getColor(), xSpeed, ySpeed);
     this.movementTimeInterval = movementTimeInterval;
     this.points = points;
+    this.spawnDelay = spawnDelay;
   }
 
   /**
@@ -75,8 +79,9 @@ public class Morph extends ABubble {
     int x = new Random().nextInt((int) Renderer.getInstance().getWindow().getWidth());
     int y = new Random().nextInt((int) Renderer.getInstance().getWindow().getHeight());
     long movementTimeInterval = new Random().nextInt(500, 2000);
+    long spawnDelay = new Random().nextInt(0, 1000);
 
-    return new Morph(x, y, 0, dna, 0, 0, movementTimeInterval, dna.getPoints());
+    return new Morph(x, y, 0, dna, 0, 0, movementTimeInterval, dna.getPoints(), spawnDelay);
   }
 
   /**
@@ -179,5 +184,26 @@ public class Morph extends ABubble {
    */
   public void setBlinkTimer(long blinkTimer) {
     this.blinkTimer = blinkTimer;
+  }
+
+  /**
+   * @return spawn delay of the morph
+   */
+  public long getSpawnDelay() {
+    return spawnDelay;
+  }
+
+  /**
+   * @return if the morph is spawned
+   */
+  public boolean isSpawned() {
+    return this.spawned;
+  }
+
+  /**
+   * @param spawned new value for the spawned state
+   */
+  public void setSpawned(boolean spawned) {
+    this.spawned = spawned;
   }
 }

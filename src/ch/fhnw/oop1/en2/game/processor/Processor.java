@@ -1,14 +1,12 @@
 package ch.fhnw.oop1.en2.game.processor;
 
-import ch.fhnw.oop1.en2.game.Game;
 import ch.fhnw.oop1.en2.game.GameState;
 import ch.fhnw.oop1.en2.game.entities.impl.Morph;
 import ch.fhnw.oop1.en2.game.entities.impl.Player;
 import ch.fhnw.oop1.en2.game.renderer.Renderer;
-import ch.fhnw.oop1.en2.game.entities.ABubble;
+import ch.fhnw.oop1.en2.game.entities.GameEntity;
 import gui.Window;
 
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -82,34 +80,51 @@ public class Processor {
         for (Morph morph : GameState.getInstance().getMorphs()) {
             morph.setTimer(morph.getTimer() + timeDelta);
             if (morph.isMeta()) {
-                if (morph.getTimer() <= Morph.META_DURATION) {
-                    morph.setRadius(calculateMorphSize(morph, timeDelta));
-                } else {
-                    morph.killer();
-                    generateRandomMorphSpeed(morph);
-                }
+                processMetaMorph(morph, timeDelta);
             } else if (morph.isPrey()) {
-                if (morph.getTimer() > Morph.PREY_DURATION) {
-                    morph.killer();
-                    generateRandomMorphSpeed(morph);
-                } else if (morph.getTimer() > 3000) {
-                    if (morph.getBlinkTimer() > 250) {
-                        morph.setPreyRender(!morph.isPreyRender());
-                        morph.setBlinkTimer(0);
-                    } else {
-                        morph.setBlinkTimer(morph.getBlinkTimer() + timeDelta);
-                    }
-                }
+                processPreyMorph(morph, timeDelta);
             } else {
-                if (morph.getTimer() > morph.getMovementTimeInterval()) {
-                    generateRandomMorphSpeed(morph);
-                }
+                processKillerMorph(morph);
+            }
+        }
+    }
 
-                if (new Random().nextInt(420) == 69) {
-                    morph.prey();
-                    morph.setXSpeed(0);
-                    morph.setYSpeed(0);
-                }
+    private void processKillerMorph(Morph morph) {
+        if (morph.getTimer() > morph.getMovementTimeInterval()) {
+            generateRandomMorphSpeed(morph);
+        }
+
+        if (new Random().nextInt(420) == 69) {
+            morph.prey();
+            morph.setXSpeed(0);
+            morph.setYSpeed(0);
+        }
+    }
+
+    private void processPreyMorph(Morph morph, long timeDelta) {
+        if (morph.getTimer() > Morph.PREY_DURATION) {
+            morph.killer();
+            generateRandomMorphSpeed(morph);
+        } else if (morph.getTimer() > 3000) {
+            if (morph.getBlinkTimer() > 250) {
+                morph.setPreyRender(!morph.isPreyRender());
+                morph.setBlinkTimer(0);
+            } else {
+                morph.setBlinkTimer(morph.getBlinkTimer() + timeDelta);
+            }
+        }
+    }
+
+    private void processMetaMorph(Morph morph, long timeDelta) {
+        if (!morph.isSpawned() && (morph.getTimer() > morph.getSpawnDelay())) {
+            morph.setSpawned(true);
+            morph.setTimer(0);
+        } else if (morph.isSpawned()){
+            if (morph.getTimer() > Morph.META_DURATION) {
+                morph.killer();
+                generateRandomMorphSpeed(morph);
+            } else {
+                morph.setRadius(calculateMorphSize(morph, timeDelta));
             }
         }
     }
@@ -128,7 +143,7 @@ public class Processor {
 
     private double calculateMorphSize(Morph morph, long timeDelta) {
         double newSize = morph.getRadius() + (((double) Morph.MAX_SIZE / Morph.META_DURATION) * timeDelta);
-        return newSize > ABubble.MAX_SIZE ? ABubble.MAX_SIZE : newSize;
+        return newSize > GameEntity.MAX_SIZE ? GameEntity.MAX_SIZE : newSize;
     }
 
     private void updatePlayer() {
@@ -152,7 +167,7 @@ public class Processor {
     }
 
     private void moveEntity() {
-        for (ABubble entity : GameState.getInstance().getEntities()) {
+        for (GameEntity entity : GameState.getInstance().getEntities()) {
             entity.setX(entity.getX() + entity.getXSpeed());
             entity.setY(entity.getY() + entity.getYSpeed());
             checkWrapAround(entity);
@@ -190,7 +205,7 @@ public class Processor {
         return null;
     }
 
-    private void checkWrapAround(ABubble entity) {
+    private void checkWrapAround(GameEntity entity) {
         Window window = Renderer.getInstance().getWindow();
         if (entity.getX() < 0) {
             entity.setX(window.getWidth());

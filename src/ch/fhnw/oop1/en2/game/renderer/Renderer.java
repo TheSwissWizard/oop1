@@ -1,7 +1,7 @@
 package ch.fhnw.oop1.en2.game.renderer;
 
 import ch.fhnw.oop1.en2.game.GameState;
-import ch.fhnw.oop1.en2.game.entities.ABubble;
+import ch.fhnw.oop1.en2.game.entities.GameEntity;
 import ch.fhnw.oop1.en2.game.entities.impl.Morph;
 import gui.Color;
 import gui.Window;
@@ -67,7 +67,7 @@ public class Renderer {
         window.drawStringCentered("Punkte: " + GameState.getInstance().getPoints(), 100, 50);
         window.drawStringCentered("Zeit: " + formatGameTimeLeft(), 300, 50);
 
-        for (ABubble entity : GameState.getInstance().getEntities()) {
+        for (GameEntity entity : GameState.getInstance().getEntities()) {
             window.setColor(entity.getColor());
             if (entity instanceof Morph && ((Morph) entity).isMeta()) {
                 renderMetaMorph((Morph) entity);
@@ -97,7 +97,7 @@ public class Renderer {
         }
     }
 
-    private void drawBubble(ABubble entity) {
+    private void drawBubble(GameEntity entity) {
         window.fillCircle(entity.getX(), entity.getY(), entity.getRadius());
     }
 

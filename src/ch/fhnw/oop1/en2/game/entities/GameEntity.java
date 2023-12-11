@@ -11,7 +11,7 @@ import gui.Color;
  *     <li>{@link ch.fhnw.oop1.en2.game.entities.impl.Player}</li>
  * </ul>
  */
-public abstract class ABubble {
+public abstract class GameEntity {
 
   private double x;
   private double y;
@@ -25,7 +25,7 @@ public abstract class ABubble {
    */
   public static final int MAX_SIZE = 20;
 
-  protected ABubble(double x, double y, double radius, Color color, int xSpeed, int ySpeed) {
+  protected GameEntity(double x, double y, double radius, Color color, int xSpeed, int ySpeed) {
     this.x = x;
     this.y = y;
     this.radius = radius;

@@ -1,6 +1,6 @@
 package ch.fhnw.oop1.en2.game;
 
-import ch.fhnw.oop1.en2.game.entities.ABubble;
+import ch.fhnw.oop1.en2.game.entities.GameEntity;
 import ch.fhnw.oop1.en2.game.entities.impl.Morph;
 import ch.fhnw.oop1.en2.game.entities.impl.Player;
 import ch.fhnw.oop1.en2.game.renderer.Renderer;
@@ -136,10 +136,10 @@ public class GameState {
 
     /**
      * Returns a list of all current entities = All {@link Morph morphs} and the {@link Player}
-     * @return a list of {@link ABubble}
+     * @return a list of {@link GameEntity}
      */
-    public List<ABubble> getEntities() {
-        List<ABubble> entities = new ArrayList<>(this.morphs);
+    public List<GameEntity> getEntities() {
+        List<GameEntity> entities = new ArrayList<>(this.morphs);
         entities.add(this.player);
         return entities;
     }
