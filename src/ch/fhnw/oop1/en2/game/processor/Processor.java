@@ -26,8 +26,7 @@ public class Processor {
      */
     public static Processor getInstance() {
         if (instance == null) {
-            instance = new Processor() {
-            };
+            instance = new Processor();
         }
         return instance;
     }
@@ -37,6 +36,8 @@ public class Processor {
 
     /**
      * With this method the update process is being started
+     *
+     * @param timeDelta time in milliseconds passed since the last frame
      */
     public void process(long timeDelta) {
 
@@ -119,7 +120,7 @@ public class Processor {
         if (!morph.isSpawned() && (morph.getTimer() > morph.getSpawnDelay())) {
             morph.setSpawned(true);
             morph.setTimer(0);
-        } else if (morph.isSpawned()){
+        } else if (morph.isSpawned()) {
             if (morph.getTimer() > Morph.META_DURATION) {
                 morph.killer();
                 generateRandomMorphSpeed(morph);
@@ -149,17 +150,17 @@ public class Processor {
     private void updatePlayer() {
         Window window = Renderer.getInstance().getWindow();
 
-        if (window.isKeyPressed("w")) {
+        if (window.isKeyPressed("up")) {
             GameState.getInstance().getPlayer().setYSpeed(-5);
-        } else if (window.isKeyPressed("s")) {
+        } else if (window.isKeyPressed("down")) {
             GameState.getInstance().getPlayer().setYSpeed(5);
         } else {
             GameState.getInstance().getPlayer().setYSpeed(0);
         }
 
-        if (window.isKeyPressed("a")) {
+        if (window.isKeyPressed("left")) {
             GameState.getInstance().getPlayer().setXSpeed(-5);
-        } else if (window.isKeyPressed("d")) {
+        } else if (window.isKeyPressed("right")) {
             GameState.getInstance().getPlayer().setXSpeed(5);
         } else {
             GameState.getInstance().getPlayer().setXSpeed(0);

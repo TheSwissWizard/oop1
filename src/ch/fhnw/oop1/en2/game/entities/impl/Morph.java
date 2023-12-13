@@ -10,10 +10,16 @@ import java.util.Random;
  */
 public class Morph extends GameEntity {
 
+  /**
+   * This enum depicts the different states (phases) a Morph can be in
+   */
   private enum MorphStates {
     META, KILLER, PREY
   }
 
+  /**
+   * This enum depicts the different DNAs a Morph can be created with
+   */
   private enum MorphDNA {
     TURQUOISE(1, new Color(6, 188, 156)),
     GREEN(5, new Color(46, 204, 113)),
@@ -40,7 +46,7 @@ public class Morph extends GameEntity {
     }
   }
 
-  private int points;
+  private final MorphDNA dna;
 
   /**
    * Amount of milliseconds the morph is in its meta state
@@ -52,7 +58,7 @@ public class Morph extends GameEntity {
    */
   public static long PREY_DURATION = 5000;
 
-  private long spawnDelay;
+  private final long spawnDelay;
   private boolean spawned = false;
   private MorphStates currentMorphState = MorphStates.META;
   private long timer = 0;
@@ -60,12 +66,11 @@ public class Morph extends GameEntity {
   private boolean preyRender = true;
   private long blinkTimer = 0;
 
-
   private Morph(int x, int y, int radius, MorphDNA dna, int xSpeed, int ySpeed,
-      long movementTimeInterval, int points, long spawnDelay) {
+      long movementTimeInterval, long spawnDelay) {
     super(x, y, radius, dna.getColor(), xSpeed, ySpeed);
+    this.dna = dna;
     this.movementTimeInterval = movementTimeInterval;
-    this.points = points;
     this.spawnDelay = spawnDelay;
   }
 
@@ -75,13 +80,13 @@ public class Morph extends GameEntity {
    */
   public static Morph createNewMorph() {
 
-    MorphDNA dna = MorphDNA.values()[(int) (Math.random() * MorphDNA.values().length)];
+    MorphDNA dna = MorphDNA.values()[new Random().nextInt(MorphDNA.values().length)];
     int x = new Random().nextInt((int) Renderer.getInstance().getWindow().getWidth());
     int y = new Random().nextInt((int) Renderer.getInstance().getWindow().getHeight());
     long movementTimeInterval = new Random().nextInt(500, 2000);
     long spawnDelay = new Random().nextInt(0, 1000);
 
-    return new Morph(x, y, 0, dna, 0, 0, movementTimeInterval, dna.getPoints(), spawnDelay);
+    return new Morph(x, y, 0, dna, 0, 0, movementTimeInterval, spawnDelay);
   }
 
   /**
@@ -138,7 +143,7 @@ public class Morph extends GameEntity {
    * @return points for this morph
    */
   public int getPoints() {
-    return this.points;
+    return this.dna.getPoints();
   }
 
   /**
@@ -164,7 +169,7 @@ public class Morph extends GameEntity {
   }
 
   /**
-   * Sets a new preRender value - if the prey morph should be rendered in the next frame
+   * Sets a new preyRender value - if the prey morph should be rendered in the next frame
    * @param preyRender new value
    */
   public void setPreyRender(boolean preyRender) {

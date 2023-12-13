@@ -7,8 +7,8 @@ import gui.Color;
  * <p>
  * Part of these entities are:
  * <ul>
- *     <li>{@link ch.fhnw.oop1.en2.game.entities.impl.Morph}</li>
- *     <li>{@link ch.fhnw.oop1.en2.game.entities.impl.Player}</li>
+ *     <li>{@link ch.fhnw.oop1.en2.game.entities.impl.Morph Morph}</li>
+ *     <li>{@link ch.fhnw.oop1.en2.game.entities.impl.Player Player}</li>
  * </ul>
  */
 public abstract class GameEntity {
@@ -16,7 +16,7 @@ public abstract class GameEntity {
   private double x;
   private double y;
   private double radius;
-  private Color color;
+  private final Color color;
   private int xSpeed;
   private int ySpeed;
 
@@ -35,37 +35,37 @@ public abstract class GameEntity {
   }
 
   /**
-   * @return the current x value of the object
+   * @return the current x position of the object
    */
   public double getX() {
     return x;
   }
 
   /**
-   * Sets a new x value for the current object
-   * @param x new c value
+   * Sets a new x position for the current object
+   * @param x new x position
    */
   public void setX(double x) {
     this.x = x;
   }
 
   /**
-   * @return current y value of the object
+   * @return current y position of the object
    */
   public double getY() {
     return y;
   }
 
   /**
-   * Sets a new y value for the object
-   * @param y new y value
+   * Sets a new y position for the object
+   * @param y new y position
    */
   public void setY(double y) {
     this.y = y;
   }
 
   /**
-   * @return radius of the  object
+   * @return radius of the object
    */
   public double getRadius() {
     return radius;

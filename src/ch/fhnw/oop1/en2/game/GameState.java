@@ -24,11 +24,16 @@ import java.util.List;
  */
 public class GameState {
 
+    /**
+     * An enum whith values that represent the games current state
+     * A game can be
+     * running, paused, won or lost
+     */
     private enum GameStates {
         RUNNING, PAUSED, WIN, LOSS
     }
 
-    private static final int INITIAL_MORPH_COUNT = 2;
+    private static final int INITIAL_MORPH_COUNT = 5;
     private final List<Morph> morphs = new ArrayList<>();
     private final Player player;
     private static GameState instance;
@@ -57,28 +62,28 @@ public class GameState {
     }
 
     /**
-     * Sets the {@link GameState#currentGameState currentGamestate} to {@link GameStates#PAUSED}
+     * Sets the {@link GameState#currentGameState} to {@link GameStates#PAUSED PAUSED}
      */
     public void pause() {
         this.currentGameState = GameStates.PAUSED;
     }
 
     /**
-     * Sets the {@link GameState#currentGameState currentGamestate} to {@link GameStates#WIN}
+     * Sets the {@link GameState#currentGameState} to {@link GameStates#WIN WIN}
      */
     public void win() {
         this.currentGameState = GameStates.WIN;
     }
 
     /**
-     * Sets the {@link GameState#currentGameState currentGamestate} to {@link GameStates#LOSS}
+     * Sets the {@link GameState#currentGameState} to {@link GameStates#LOSS LOSS}
      */
     public void loss() {
         this.currentGameState = GameStates.LOSS;
     }
 
     /**
-     * Sets the {@link GameState#currentGameState currentGamestate} to {@link GameStates#RUNNING}
+     * Sets the {@link GameState#currentGameState} to {@link GameStates#RUNNING RUNNING}
      */
     public void unpause() {
         this.currentGameState = GameStates.RUNNING;
@@ -167,7 +172,7 @@ public class GameState {
     }
 
     /**
-     * @return the game left in this game
+     * @return the time left in this game
      */
     public long getGameTime() {
         return this.gameTime;
@@ -184,7 +189,7 @@ public class GameState {
     /**
      * Sets the current instance of GameState to null
      * So that in the next frame a fresh GameState is provided by {@link GameState#getInstance()}
-     * and the game can be restarted
+     * and the game can be started from the beginning
      */
     public void reset() {
         instance = null;

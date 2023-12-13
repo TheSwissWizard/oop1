@@ -4,7 +4,7 @@ import ch.fhnw.oop1.en2.game.entities.GameEntity;
 import gui.Color;
 
 /**
- * This clas depicts the Player of the game
+ * This class depicts the Player of the game
  */
 public class Player extends GameEntity {
 

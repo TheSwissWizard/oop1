@@ -1,16 +1,18 @@
 package ch.fhnw.oop1.en2.game.renderer;
 
+import ch.fhnw.oop1.en2.game.Game;
 import ch.fhnw.oop1.en2.game.GameState;
 import ch.fhnw.oop1.en2.game.entities.GameEntity;
 import ch.fhnw.oop1.en2.game.entities.impl.Morph;
 import gui.Color;
 import gui.Window;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * This class contains part of the game's render/draw logic.
- * It orchestrates and delegates functions to draw the different entities onto the window
+ * This class contains the game's render/draw logic.
+ * It orchestrates and delegates functions to draw the different entities and texts onto the window
  */
 public class Renderer {
 
@@ -40,13 +42,13 @@ public class Renderer {
     public void render() {
 
         if (GameState.getInstance().isPaused()) {
-            renderText("PAUSED", window.getWidth() / 2, window.getHeight() / 2);
+            renderText("PAUSED", window.getWidth() / 2, window.getHeight() / 2, 30);
         } else if (GameState.getInstance().isWon()) {
             renderText(String.format("You won with %s points!!!\nRestart with space", GameState.getInstance().getPoints()),
-                    window.getWidth() / 2, window.getHeight() / 2);
+                    window.getWidth() / 2, window.getHeight() / 2, 30);
         } else if (GameState.getInstance().isLost()) {
             renderText(String.format("GameOver!!!\nPoints: %s\nTime left: %s", GameState.getInstance().getPoints(), formatGameTimeLeft()),
-                    window.getWidth() / 2, window.getHeight() / 2);
+                    window.getWidth() / 2, window.getHeight() / 2, 30);
         } else if (GameState.getInstance().isRunning()) {
             renderGame();
         }
@@ -54,8 +56,8 @@ public class Renderer {
         window.refreshAndClear();
     }
 
-    private void renderText(String text, double x, double y) {
-        window.setFontSize(30);
+    private void renderText(String text, double x, double y, int size) {
+        window.setFontSize(size);
         for (String s : text.split("\n")) {
             window.drawStringCentered(s, x, y);
             y += window.getFontSize();
@@ -63,9 +65,8 @@ public class Renderer {
     }
 
     private void renderGame() {
-        window.setFontSize(20);
-        window.drawStringCentered("Punkte: " + GameState.getInstance().getPoints(), 100, 50);
-        window.drawStringCentered("Zeit: " + formatGameTimeLeft(), 300, 50);
+        renderText("Punkte " + GameState.getInstance().getPoints(), 100, 50, 20);
+        renderText("Zeit: " + formatGameTimeLeft(), 300, 50, 20);
 
         for (GameEntity entity : GameState.getInstance().getEntities()) {
             window.setColor(entity.getColor());
@@ -93,7 +94,7 @@ public class Renderer {
         if (morph.isPreyRender()) {
             window.setColor(new Color(255, 255, 255));
             window.drawStringCentered(Integer.toString(morph.getPoints()), morph.getX(),
-                morph.getY() + 7);
+                    morph.getY() + 7);
         }
     }
 
