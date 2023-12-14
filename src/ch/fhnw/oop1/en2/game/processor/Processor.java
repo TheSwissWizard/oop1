@@ -109,6 +109,7 @@ public class Processor {
     private void processPreyMorph(Morph morph, long timeDelta) {
         if (morph.getTimer() > Morph.PREY_DURATION) {
             morph.killer();
+            morph.setPreyRender(true);
             generateRandomMorphSpeed(morph);
         } else if (morph.getTimer() > 3000) {
             if (morph.getBlinkTimer() > 250) {
