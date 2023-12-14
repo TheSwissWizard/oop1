@@ -49,6 +49,10 @@ public class Processor {
             }
         }
 
+        if (Renderer.getInstance().getWindow().wasKeyTyped("space")) {
+            GameState.getInstance().reset();
+        }
+
         if (GameState.getInstance().isRunning()) {
             processGame(timeDelta);
         } else if (GameState.getInstance().isWon() || GameState.getInstance().isLost()) {
